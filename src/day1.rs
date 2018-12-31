@@ -1,3 +1,5 @@
+use std::collections::HashSet;
+
 use aoc_runner_derive::{aoc, aoc_generator};
 
 #[aoc_generator(day1)]
@@ -12,14 +14,12 @@ pub fn solve_part1(input: &[i32]) -> i32 {
 
 #[aoc(day1, part2)]
 pub fn solve_part2(input: &[i32]) -> i32 {
-    let mut seen = vec![0];
+    let mut seen = HashSet::new();
     let mut acc = 0;
     for i in input.iter().cycle() {
         acc += i;
-        if seen.contains(&acc) {
+        if !seen.insert(acc) {
             return acc;
-        } else {
-            seen.push(acc);
         }
     }
     unreachable!();
